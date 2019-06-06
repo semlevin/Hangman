@@ -8,7 +8,7 @@ const char* Words[] = {
 	"kitchen",
 	"table",
 	"chair",
-
+	
 };
 
 #define MAXWORD 50
@@ -30,15 +30,15 @@ int main()
 {
 	
 	char HiddenWord[MAXWORD];
-	int IndexWord = 1;
+	int IndexWord;
 	int LengthWord;
 	char Letter;
 	int RemTry;
-
-
-
 	int two = 2;
 	int one = 1;
+
+	const char* WordHide;
+
 
 
 
@@ -81,10 +81,14 @@ int main()
 	}
 	
 	
-
 start:
+	printf(" Choose Word");
+	scanf_s("%d", &IndexWord);
 	RemTry = 5;
-	LengthWord = StringLength(Words[IndexWord]);
+
+	WordHide = Words[IndexWord];
+
+	LengthWord = StringLength(WordHide);
 
 	for (int i = 0; i < LengthWord; i++)
 		HiddenWord[i] = '*';
@@ -110,7 +114,9 @@ NextStep:
 
 	}
 
-	if (GoodTry == false)
+
+
+	if (GoodTry == false)	
 		RemTry--;
 
 	if (RemTry == 0)
@@ -120,10 +126,17 @@ NextStep:
 		scanf_s("\n %c", &Letter);
 		if (Letter == 'y')
 			goto start;
+
 		return 0;
 
 	}
-	goto NextStep;
 
+	for (int i = 0; i < LengthWord; i++)
+	{
+		if (HiddenWord[i] == '*')
+			goto NextStep;
+	}
 
+	printf("You win");
+	return 0;
 }
